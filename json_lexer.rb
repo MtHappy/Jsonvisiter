@@ -1,4 +1,5 @@
 class JsonLexer
+
   def initialize(f)
     @srcf=f
     @line=""
@@ -8,11 +9,11 @@ class JsonLexer
   attr_reader :linenumber
 
   def lex()
-    if /^\s+/ =~ @line
+    if /\A\s+/ =~ @line
       @line = $'
     end
     while @line.empty? do
-      @line = @srcf.gets
+      @line = @srcf.shift
       if @line == nil
         return :eof
       end
@@ -24,50 +25,32 @@ class JsonLexer
 
     case @line
     when /\A\:/
-      yield $&
-      token = :colon
+      yield :colon, $&
     when /\A\[/
-      yield $&
-      token = :lbracket
+      yield :lbracket, $&
     when /\A\]/
-      yield $&
-      token = :rbracket
+      yield :rbracket, $&
     when /\A\{/
-      yield $&
-      token = :lbra
+      yield :lbra, $&
     when /\A\}/
-      yield $&
-      token = :rbra
+      yield :rbra, $&
     when /\A\,/
-      yield $&
-      token = :comma
+      yield :comma, $&
     when /\"[^"]*\"/
-      yield $&
-      token = :string
+      yield :string, $&
     when /\A[+-]?\d+\.\d+([eE][-+]?[0-9]+)?/
-      yield $&
-      token = :float
+      yield :float, $&
     when /\A[+-]?\d+/
-      yield $&
-      token = :int
+      yield :int, $&
     when /\Afalse/
-      yield $&
-      token = :false
+      yield :false, $&
     when /\Atrue/
-      yield $&
-      token =  :true
+      yield :true, $&
     when /\Anull/
-      yield $&
-      token = :null
-    when /\A\s/
-      # ignore
-      token = :whitespace
-    when /\A\S/
-      # ignore
-      token = :other
+      yield :null, $&
     end
+    puts "matched is (#{$&})"
     @line = $'
-    puts "matched is #{token}(#{$&})"
-    return token
+    #return token
   end
 end
