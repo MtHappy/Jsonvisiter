@@ -1,4 +1,4 @@
-require './json_lexer'
+require './lexer'
 require './Parser'
 
 l = []
