@@ -22,7 +22,7 @@ class Parser
       when :lbracket
         array
       else
-        errormsg('json', @token, 'json')
+        errormsg('json', @token, "{#{:Object}}","[#{:Array}]")
       end
   end
 
@@ -125,8 +125,6 @@ File.open("example0.json") do |io|
 	l << line
   end
 end
-
-puts l.join('*')
 
 #字句解析器
 mylex = JsonLexer.new(l)
