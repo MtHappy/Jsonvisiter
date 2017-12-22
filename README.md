@@ -102,4 +102,60 @@ end
 ## アクション
 > 構文解析時の文法規則に対応した処理のこと
 
+## Parse Tree
+抽象構文木 :  
+> プログラムの構造の本質だけを表現する
+
+### 実装
+ノードの実装 :
+```
+class Node
+	def initialize(label, *children)
+		@label = label
+		@children = children
+	end
+end
+
+#usage
+n1 = Node.new("1")
+n2 = Node.new("2")
+np = Node.new("+",n1,n2)
+```
+
+オブジェクト指向的な実装 : 
+Nodeクラスにevalメソッドを追加する  
+
+#### Visiterパターン
+オーバーロードの活用
+各ノードがVisitorオブジェクトを受け取れるようにする．  
+Visitorオブジェクトを受け取ったノードオブジェクトは，そのVisitorオブジェクトのメソッドに自身を返す．  
+
+```
+# Node class
+class SampleNode
+	attr_reader :val
+	def initialize(val)
+		@val = val
+	end
+
+	def accept(v)
+		v.visit(self)
+	end
+end
+
+# Visitor class
+class SampleVisitor
+	def initialize
+		@nodes = {SampleNode => lambda{|n| n.val}, ...}
+	end
+
+	def visit(n)
+		@nodes[n.class].call(n)
+	end
+end
+
+tree = SampleNode.new(Sample_a.new(foo),Sample_b.new(hoge))
+puts tree.accept(SampleVisitor.new)
+```
+
 

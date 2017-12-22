@@ -19,6 +19,8 @@ class Parser
         object
       when :lbracket
         array
+      else
+        errormsg('json', @token, 'json')
       end
   end
 
@@ -36,13 +38,10 @@ class Parser
   end
 
   def memberlist
-    case @token
-    when :string
+    pair
+    while @token == :comma do
+      checktoken("params", :comma)
       pair
-      while @token == :comma do
-        checktoken("params", :comma)
-        pair
-      end
     end
   end
 
@@ -59,7 +58,6 @@ class Parser
   end
 
   def element
-
     case @token
     when :string, :int, :float, :true, :false, :null, :lbra, :lbracket
       elementlist
