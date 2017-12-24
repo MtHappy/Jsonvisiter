@@ -1,5 +1,3 @@
-require './lexer'
-
 class Parser
   @lexime = "";
 
@@ -119,16 +117,3 @@ private
     exit(1)
   end
 end
-
-l = []
-
-File.open("example0.json") do |io|
-  while line = io.gets
-	   l << line
-  end
-end
-
-#字句解析器
-mylex = JsonLexer.new(l)
-p = Parser.new(mylex)
-p.parse

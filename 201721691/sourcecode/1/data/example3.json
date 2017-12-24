@@ -1,0 +1,14 @@
+{
+    "Fred"
+    : "Flintstone"
+,
+    "Wilma" : 1234,
+    "Barney" : false,
+    "Dino" : [ "Tyrannical Dog", 3.14159, true ],
+    "Bam Bam" :
+    {
+	"strength" : 515,,
+	"size" : "small",
+	"Pebble" : { "lastname" : "Flintstone", "male" : false}
+    }
+}

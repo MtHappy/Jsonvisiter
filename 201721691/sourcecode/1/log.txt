@@ -1,0 +1,8 @@
+data/example0.json
+data/example1.json
+data/example2.json
+data/example3.json
+syntax error (string(comma)) : string is expected.
+data/example4.json
+data/example5.json
+syntax error (json()) : {Object} or [Array] is expected.
